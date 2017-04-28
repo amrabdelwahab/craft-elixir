@@ -6,7 +6,7 @@ defmodule Craft.Echo do
     {:ok, pid}
   end
 
-  def send(pid, msg) do
+  def async_send(pid, msg) do
     Kernel.send(pid, {msg, self()})
   end
 
