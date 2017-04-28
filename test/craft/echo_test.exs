@@ -2,7 +2,7 @@ defmodule Craft.EchoTest do
   use ExUnit.Case, async: true
   alias Craft.Echo
 
-  test "echo" do
+  test "async_send" do
     {:ok, pid} = Echo.start_link()
     Echo.async_send(pid, :hello)
     assert_receive :hello
@@ -19,5 +19,10 @@ defmodule Craft.EchoTest do
     {:ok, pid} = Echo.start_link()
     Process.sleep(51)
     refute Process.alive?(pid )
+  end
+
+  test "sync_send" do
+    {:ok, pid} = Echo.start_link()
+    assert :hello == Echo.sync_send(pid, :hello)
   end
 end
